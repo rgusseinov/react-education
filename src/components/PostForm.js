@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { createPost, showAlert } from '../redux/actions'
+import { createPost, showAlert, postCount } from '../redux/actions'
 import { Alert } from './Alert'
 
 class PostForm extends React.Component {
@@ -25,6 +25,8 @@ class PostForm extends React.Component {
     }
     
     this.props.createPost(newPost)
+    this.props.postCount(newPost)
+    
     this.setState({ title: '' })
   }
 
@@ -37,10 +39,12 @@ class PostForm extends React.Component {
   render(){
     return (
       <form onSubmit={this.submitHandler}>
+        Count: {this.props.count} 
+        <br/>
         {this.props.alert && <Alert text={this.props.alert} /> }
         <div className="form-group">
           <label htmlFor="title"> Заголовок поста </label>
-          <input 
+          <input
             type="text"
             className="form-control" 
             id="title"
@@ -56,11 +60,12 @@ class PostForm extends React.Component {
 }
 
 const mapDispatchToProps = {
-  createPost, showAlert
+  createPost, showAlert, postCount
 }
 
 const mapStateToProps = state => ({
-  alert: state.app.alert
+  alert: state.app.alert,
+  count: state.post
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

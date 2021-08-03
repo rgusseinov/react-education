@@ -2,9 +2,16 @@ import FetchedPosts from "./components/FetchPosts";
 import PostForm from "./components/PostForm";
 import Posts from "./components/Posts";
 
-function App() {
+function App({ posts }) {
   return (
-    <div className="container pt-3"> 
+    <div className="container pt-3">
+      
+      <div className="row">
+        <div className="col col-right">
+          <h4> Кол-во постов:  {posts} </h4>          
+        </div>
+      </div>
+
       <div className="row">
         <div className="col">
           <PostForm />
