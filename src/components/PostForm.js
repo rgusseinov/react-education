@@ -13,11 +13,12 @@ class PostForm extends React.Component {
 
   submitHandler = event => {
     event.preventDefault();
-    // console.log(this.state.title)
+    const { title } = this.state
+
     const newPost = {
-      // eslint-disable-next-line no-undef
       title, id: Date.now().toString()
     }
+    
     this.props.createPost(newPost)
     this.setState({ title: '' })
   }
