@@ -1,15 +1,20 @@
-import { ADD, MIN } from "./types";
+import { ADD, ADD_POST, MIN } from "./types";
 
-export function addCount(value){
+export function increment(){
   return {
-    type: ADD,
-    payload: value
+    type: ADD
   }
 }
 
-export function minCount(value){
+export function decrement(){
   return {
-    type: MIN,
-    payload: value
+    type: MIN
+  }
+}
+
+export function addPost(title){
+  return {
+    type: ADD_POST,
+    payload: title
   }
 }
