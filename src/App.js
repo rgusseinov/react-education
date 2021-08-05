@@ -1,42 +1,32 @@
-import { useEffect, useState } from "react";
-import Item from "./components/item";
+import { useState } from "react";
+import { connect } from "react-redux";
+import { addCount, minCount } from "./redux/actions";
 
-function App() {
+function App({ counter }) {
+  const [count, setCounter] = useState(0);
 
-  const [status, setStatus] = useState([])
-  const [counter, setCounter] = useState(0)
-  
-  function onStatusChange(e){
-    const checkStatus = e.target.checked
-    const name = e.target.name
-
-    setStatus({
-      ...status,
-      [name]: checkStatus,
-    });
-
+  const handleClick = (count) => {
+    setCounter(count);
   }
-  
-  function onClickStatus(e){
-    setCounter(counter + 1)
-  }
-  
-  useEffect(() => {
-    console.log(`Rerender`)
-  }, [status])
-
 
   return (
     <div className="App">
-
-      <h2> Working with checkbox </h2>
-
-      <Item
-        onStatusChange={onStatusChange}
-        onClickStatus={onClickStatus}
-      />
+      <h2> Counter </h2>
+      Count = {counter} <br />
+      <button onClick={() => handleClick(count + 1)}> Add count </button>
+      <br />
+      <button onClick={() => handleClick(count - 1)}> Minus count </button>
     </div>
   );
 }
 
-export default App;
+
+const mapDispatchToProps = {
+  addCount, minCount
+}
+
+const mapStateToProps = state => ({
+  counter: state.count
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
