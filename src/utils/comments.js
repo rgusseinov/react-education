@@ -1,5 +1,3 @@
-import { getNewsItem } from '../../requests/item';
-
 export const buildTree = (comments, postId) => {
   const commentsById = {};
   comments.forEach((comment) => {
@@ -42,7 +40,7 @@ export const getCommentsByIds = async (kids) => {
       });
     })
     .catch((err) => {
-      console.error(`Что-то пошло не так: `, err);
+      console.error(`Something goes wrong: `, err);
     });
 };
 
