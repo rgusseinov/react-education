@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
-import Comments from "./Comments";
-import { buildTree, getCommentsByIds } from "./utils/comments";
+import { getCommentsByIds, getNewsItem } from './utils/comments';
+
+const newsId = 29529205;
+
+async function getCommentTree(){
+
+  const singleNews = await getNewsItem(newsId); 
+  const allComments = await getCommentsByIds(singleNews.kids);
+
+  console.log(allComments);  
+  
+}
+
 
 function App() {
-  const [commentsData, setCommentsData] = useState([]);
-  const kids = [29538858, 29538122, 29538598, 29537999, 29538702, 29538270];
-  const newsId = 29537660;
+
+  getCommentTree();
 
 
-  useEffect(() => {
-    const requestComments = async () => {
-      try {
-        const comments = await getCommentsByIds(kids);
-        const bTree = buildTree(comments, newsId);
-
-        console.log(`bTree`, bTree);
-
-        setCommentsData(bTree);
-      } catch {
-
-      }
-    }
-    requestComments();
-
-  }, []);
-
-
-  /* const commentsData = [
+/*   const commentsData = [
     {id: 1, title: 'This is good news', kids: []},
     {id: 2, title: 'Best news ever', kids: [
       {id: 4, title: 'Sub Comments 1', kids: []},
@@ -44,16 +35,16 @@ function App() {
       {id: 3, title: 'Amazing 3', kids: []},
       {id: 3, title: 'Amazing 4', kids: []},
     ]},
-  ]; */
-
+  ];
+ */
 
 
   return (
     <div className="App">
       <h4>Comments Here</h4>
-      <Comments 
+      {/* <Comments 
         comments={commentsData}
-      />
+      /> */}
     </div>
   );
 }

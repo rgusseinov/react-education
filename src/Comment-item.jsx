@@ -11,7 +11,7 @@ function CommentItem({ comment }) {
 
 	return <div className='comments'
 		key={comment.id}>
-		dangerouslySetInnerHTML={comment.text}
+		{comment.text}
 
 		{
 			comment.kids.length > 0 &&
