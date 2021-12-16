@@ -17,9 +17,6 @@ export const getCommentsByIds = async (kids) => {
 };
 
 
-
-
-
 export const buildTree = (comments, postId) => {
   const commentsById = {};
   comments.forEach((comment) => {
@@ -27,9 +24,8 @@ export const buildTree = (comments, postId) => {
   });
 
   const rootComments = comments.filter((comment) => {
-    return comment?.parent?.toString() === postId;
+    return comment.parent === postId;
   });
-
 
   return rootComments.map((item) => buildCommentTree(item, commentsById));
 };

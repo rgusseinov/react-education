@@ -1,50 +1,35 @@
-import { getCommentsByIds, getNewsItem } from './utils/comments';
-
-const newsId = 29529205;
-
-async function getCommentTree(){
-
-  const singleNews = await getNewsItem(newsId); 
-  const allComments = await getCommentsByIds(singleNews.kids);
-
-  console.log(allComments);  
-  
-}
+import { useEffect, useState } from 'react';
+import { buildTree, getCommentsByIds, getNewsItem } from './utils/comments';
+import Comments from './Comments';
 
 
 function App() {
+  const newsId = 29563781;
 
-  getCommentTree();
+  const [commentsData, setCommentsData] = useState([]);
+  const [commentsTitle, setCommentsTitle] = useState([]);
 
+  useEffect(() => {
+    const requestComments = async () => {
+      const singleNews = await getNewsItem(newsId); 
+      const flatComments = await getCommentsByIds(singleNews.kids);
+      const tree = buildTree(flatComments, newsId);
 
-/*   const commentsData = [
-    {id: 1, title: 'This is good news', kids: []},
-    {id: 2, title: 'Best news ever', kids: [
-      {id: 4, title: 'Sub Comments 1', kids: []},
-      {id: 5, title: 'Sub Comments 2', kids: []},
-      {id: 6, title: 'Sub Comments 3', kids: [
-        {id: 7, title: 'Level 1', kids: []},
-        {id: 8, title: 'Level 2', kids: []},
-        {id: 9, title: 'Level 3', kids: []},
-        
-      ]},
-      {id: 7, title: 'Sub Comments 4', kids: []}
-    ]},
-    {id: 3, title: 'Amazing', kids: [
-      {id: 3, title: 'Amazing 2', kids: []},
-      {id: 3, title: 'Amazing 3', kids: []},
-      {id: 3, title: 'Amazing 4', kids: []},
-    ]},
-  ];
- */
+      // console.log(`tree`, tree);
+      setCommentsData(tree);
+      setCommentsTitle(singleNews.title);
+    }
 
+    requestComments();
+  }, []);
+  
 
   return (
     <div className="App">
-      <h4>Comments Here</h4>
-      {/* <Comments 
+      <h3>{commentsTitle}</h3>
+      <Comments
         comments={commentsData}
-      /> */}
+      />
     </div>
   );
 }

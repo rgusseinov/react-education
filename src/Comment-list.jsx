@@ -1,7 +1,7 @@
 import CommentItem from "./Comment-item";
 
 function CommentList({ commentList }) {
-
+	console.log(`commentList`, commentList);
 	return (
 		<div>
 			{

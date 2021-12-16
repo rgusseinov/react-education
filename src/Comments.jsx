@@ -2,7 +2,6 @@ import CommentList from './Comment-list';
 import './style.css';
 
 function Comments({ comments }) {
-
 	return (
 		<div>
 			{
